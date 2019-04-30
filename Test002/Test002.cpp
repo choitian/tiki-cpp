@@ -166,13 +166,11 @@ int counter;
 void thr(std::shared_ptr<Base> p,int i)
 {
     std::this_thread::sleep_for(std::chrono::seconds(1));
-   
-    static std::mutex io_mutex;
-    std::lock_guard<std::mutex> lk(io_mutex);
-    
-    counter++;
-
-    std::this_thread::sleep_for(std::chrono::seconds(1));
+    {
+        static std::mutex io_mutex;
+        std::lock_guard<std::mutex> lk(io_mutex);
+        counter +=i;
+    }
     std::shared_ptr<Base> lp = p; // thread-safe, even though the
                                   // shared use_count is incremented
     {
@@ -235,8 +233,6 @@ int main()
     test_001<int>(12345);
     test_002();
     test_003();
-    test_004();
-    test_004();
     test_004();
     test_004();
     
