@@ -172,7 +172,6 @@ void thr(std::shared_ptr<Base> p,int i)
     
     counter++;
 
-    /*
     std::this_thread::sleep_for(std::chrono::seconds(1));
     std::shared_ptr<Base> lp = p; // thread-safe, even though the
                                   // shared use_count is incremented
@@ -183,7 +182,6 @@ void thr(std::shared_ptr<Base> p,int i)
                   << "  lp.get() = " << lp.get()
                   << ", lp.use_count() = " << lp.use_count() << '\n';
     }
-    */
 }
 void test_004()
 {
