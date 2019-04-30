@@ -7,7 +7,7 @@
 /* 
  * File:   main.cpp
  * Author: nur
- *
+ * 
  * Created on April 30, 2019, 1:01 PM
  */
 
@@ -20,6 +20,7 @@ using namespace std;
  */
 int main(int argc, char** argv) {
 
+    int i = 1000;
     return 0;
 }
 

@@ -149,6 +149,7 @@ void test_003()
  * 
  */
 //std::thread
+//shared_ptr
 struct Base
 {
     Base() { std::cout << "  Base::Base()\n"; }
@@ -160,9 +161,18 @@ struct Derived: public Base
     Derived() { std::cout << "  Derived::Derived()\n"; }
     ~Derived() { std::cout << "  Derived::~Derived()\n"; }
 };
- 
-void thr(std::shared_ptr<Base> p)
+
+int counter;
+void thr(std::shared_ptr<Base> p,int i)
 {
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+   
+    static std::mutex io_mutex;
+    std::lock_guard<std::mutex> lk(io_mutex);
+    
+    counter++;
+
+    /*
     std::this_thread::sleep_for(std::chrono::seconds(1));
     std::shared_ptr<Base> lp = p; // thread-safe, even though the
                                   // shared use_count is incremented
@@ -170,9 +180,10 @@ void thr(std::shared_ptr<Base> p)
         static std::mutex io_mutex;
         std::lock_guard<std::mutex> lk(io_mutex);
         std::cout << "local pointer in a thread:\n"
-                  << "  lp.get() = " << p.get()
+                  << "  lp.get() = " << lp.get()
                   << ", lp.use_count() = " << lp.use_count() << '\n';
     }
+    */
 }
 void test_004()
 {
@@ -181,22 +192,33 @@ void test_004()
     std::cout << "Created a shared Derived (as a pointer to Base)\n"
               << "  p.get() = " << p.get()
               << ", p.use_count() = " << p.use_count() << '\n';
-    //std::thread t1(thr, p), t2(thr, p);
+    
+    int howMany = 2222;
+    std::thread threads[howMany];
+    for(int i=0;i<howMany;i++)
+        threads[i] = std::thread(thr, p,1);
     p.reset(); // release ownership from main
     std::cout << "Shared ownership between 3 threads and released\n"
               << "ownership from main:\n"
               << "  p.get() = " << p.get()
               << ", p.use_count() = " << p.use_count() << '\n';
-    //t1.join(); 
-    //t2.join(); 
+    
+    for(int i=0;i<howMany;i++)
+        threads[i].join();
+    
     std::cout << "All threads completed, the last one deleted Derived\n";
+    
+    std::cout << "counter: " << counter << "\n";
+    
 }
 /*
  * test_005
  */
 //Disallow copying,delete
 class DoNotCopyMe {
-    // ...
+    //...
+public:
+    DoNotCopyMe() = default;
     DoNotCopyMe& operator=(const DoNotCopyMe&) = delete;  // Disallow copying
     DoNotCopyMe(const DoNotCopyMe&) = delete;
 };
@@ -204,16 +226,20 @@ void test_005()
 {
     DoNotCopyMe a;
     DoNotCopyMe b;
-    a = b;
-    DoNotCopyMe c(b);
+    
+    //a = b;
+    //DoNotCopyMe c(b);
 }
 int main()
 {
     std::cout<<"in main"<<std::endl;
     
-    test_001<int>(12345); 
+    test_001<int>(12345);
     test_002();
     test_003();
+    test_004();
+    test_004();
+    test_004();
     test_004();
     
     return 0;

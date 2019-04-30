@@ -42,11 +42,13 @@ TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
 
 # Test Files
 TESTFILES= \
-	${TESTDIR}/TestFiles/f1
+	${TESTDIR}/TestFiles/f1 \
+	${TESTDIR}/TestFiles/f2
 
 # Test Object Files
 TESTOBJECTFILES= \
-	${TESTDIR}/Test001/Test001.o
+	${TESTDIR}/Test001/Test001.o \
+	${TESTDIR}/Test002/Test002.o
 
 # C Compiler Flags
 CFLAGS=
@@ -88,11 +90,21 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/Test001/Test001.o ${OBJECTFILES:%.o=%_nomain
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS}   
 
+${TESTDIR}/TestFiles/f2: ${TESTDIR}/Test002/Test002.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS}   
+
 
 ${TESTDIR}/Test001/Test001.o: Test001/Test001.cpp 
 	${MKDIR} -p ${TESTDIR}/Test001
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/Test001/Test001.o Test001/Test001.cpp
+
+
+${TESTDIR}/Test002/Test002.o: Test002/Test002.cpp 
+	${MKDIR} -p ${TESTDIR}/Test002
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/Test002/Test002.o Test002/Test002.cpp
 
 
 ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cpp 
@@ -113,6 +125,7 @@ ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cpp
 	@if [ "${TEST}" = "" ]; \
 	then  \
 	    ${TESTDIR}/TestFiles/f1 || true; \
+	    ${TESTDIR}/TestFiles/f2 || true; \
 	else  \
 	    ./${TEST} || true; \
 	fi

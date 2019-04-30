@@ -22,6 +22,10 @@
         <itemPath>Test001/Test001.cpp</itemPath>
         <itemPath>Test001/catch.hpp</itemPath>
       </logicalFolder>
+      <logicalFolder name="f2" displayName="Test002" projectFiles="true" kind="TEST">
+        <itemPath>Test002/Test002.cpp</itemPath>
+        <itemPath>Test002/catch.hpp</itemPath>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -41,11 +45,16 @@
       <compileType>
         <ccTool>
           <standard>8</standard>
+          <commandLine>-pthread</commandLine>
         </ccTool>
       </compileType>
       <item path="Test001/Test001.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Test001/catch.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Test002/Test002.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Test002/catch.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles/f1">
         <cTool>
@@ -60,6 +69,21 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
@@ -90,6 +114,10 @@
       </item>
       <item path="Test001/catch.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Test002/Test002.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Test002/catch.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -103,6 +131,21 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
