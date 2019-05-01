@@ -12,15 +12,15 @@
  */
 
 #include <cstdlib>
+#include <string>
+#include <iostream>
+#include <regex>
 
-using namespace std;
 
 /*
  * 
  */
 int main(int argc, char** argv) {
-
-    int i = 1000;
     return 0;
 }
 

@@ -1,10 +1,11 @@
 #include <iostream>
+#include <string>
 #include <memory>
 #include <algorithm>
 #include <thread>
 #include <chrono>
 #include <mutex>
-
+#include <regex>
 
 /*
  * test_001
@@ -189,7 +190,8 @@ void test_004()
               << "  p.get() = " << p.get()
               << ", p.use_count() = " << p.use_count() << '\n';
     
-    int howMany = 2222;
+    int howMany = 999;
+    
     std::thread threads[howMany];
     for(int i=0;i<howMany;i++)
         threads[i] = std::thread(thr, p,1);
@@ -226,6 +228,26 @@ void test_005()
     //a = b;
     //DoNotCopyMe c(b);
 }
+/*
+ * test_006
+ */
+//regex
+void test_006 ()
+{
+  std::string s ("this subject has a submarine as a subsequence");
+  std::smatch m;
+  std::regex e ("\\b(sub)([^ ]*)");   // matches words beginning by "sub"
+
+  std::cout << "Target sequence: " << s << std::endl;
+  std::cout << "Regular expression: /\\b(sub)([^ ]*)/" << std::endl;
+  std::cout << "The following matches and submatches were found:" << std::endl;
+
+  while (std::regex_search (s,m,e)) {
+    for (auto x:m) std::cout << x << " ";
+    std::cout << std::endl;
+    s = m.suffix().str();
+  }
+}
 int main()
 {
     std::cout<<"in main"<<std::endl;
@@ -234,7 +256,8 @@ int main()
     test_002();
     test_003();
     test_004();
-    test_004();
+    test_005();
+    test_006();
     
     return 0;
 }
