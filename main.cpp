@@ -14,13 +14,20 @@
 #include <cstdlib>
 #include <string>
 #include <iostream>
-#include <regex>
-
-
+#include "tools/syntax/grammar/grammar.h"
+#include "tools/util/commons.h"
 /*
  * 
  */
 int main(int argc, char** argv) {
+    GRAMMAR *gram = new GRAMMAR("re_grammar.txt");
+    for(auto &kv:gram->FST)
+    {
+        std::cout<<kv.first<<"+++\n";
+        
+        std::string nodes = util::join_strings(kv.second," ");
+        std::cout<<nodes<<"\n";
+    }
     return 0;
 }
 
