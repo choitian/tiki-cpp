@@ -1,15 +1,46 @@
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 #include "catch.hpp"
-#include "tools/syntax/grammar/grammar.h"
-#include "tools/util/commons.h"
+#include "tools/syntax/Grammar.h"
+#include "util/commons.h"
+#include "tools/syntax/LookaheadLR.h"
 
-void test_GRAMMAR() {
+void Test_BuildCanonicalCollection() {
     {
-        GRAMMAR *gram = new GRAMMAR("re_grammar.txt");
-        for(auto &prod:gram->Productions)
+        syntax::Grammar *gram = new syntax::Grammar("re_grammar.txt");
+        syntax::LookaheadLR *lalr = new syntax::LookaheadLR(gram);
+        lalr->BuildCanonicalCollection();
+        REQUIRE(lalr->States.size() == 19);
+        
+        int kernelSum = 0;
+        int gotoSum = 0;
+        for(auto state:lalr->States)
         {
-            std::cout<<prod->ToString()<<std::endl;
+            kernelSum +=state.second->GetKernelItems().size();
+            gotoSum +=state.second->GotoTable.size();
         }
+        REQUIRE(kernelSum == 24);
+        REQUIRE(gotoSum == 42);
+    }
+    {
+        syntax::Grammar *gram = new syntax::Grammar("dnf.txt");
+        syntax::LookaheadLR *lalr = new syntax::LookaheadLR(gram);
+        lalr->BuildCanonicalCollection();
+        REQUIRE(lalr->States.size() == 245);
+        
+        int kernelSum = 0;
+        int gotoSum = 0;
+        for(auto state:lalr->States)
+        {
+            kernelSum +=state.second->GetKernelItems().size();
+            gotoSum +=state.second->GotoTable.size();
+        }
+        REQUIRE(kernelSum == 374);
+        REQUIRE(gotoSum == 1511);
+    }
+}
+void test_Grammar() {
+    {
+        syntax::Grammar *gram = new syntax::Grammar("re_grammar.txt");
         REQUIRE(gram->Productions.size() == 15);
         REQUIRE(gram->Nullable.size() == 1);
         for(auto &kv:gram->FST)
@@ -22,11 +53,7 @@ void test_GRAMMAR() {
         }
     }
     {
-        GRAMMAR *gram = new GRAMMAR("dnf.txt");
-        for(auto &prod:gram->Productions)
-        {
-            std::cout<<prod->ToString()<<std::endl;
-        }
+        syntax::Grammar *gram = new syntax::Grammar("dnf.txt");
         REQUIRE(gram->Productions.size() == 143);
         REQUIRE(gram->Nullable.size() == 4);
         for(auto &kv:gram->FST)
@@ -51,5 +78,6 @@ void test_GRAMMAR() {
 }
 
 TEST_CASE( "Factorials are computed", "[factorial]" ) {
-    test_GRAMMAR();
+    test_Grammar();
+    Test_BuildCanonicalCollection();
 }
