@@ -36,8 +36,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/tools/syntax/grammar/grammer.o \
-	${OBJECTDIR}/tools/util/commons.o
+	${OBJECTDIR}/tools/syntax/Grammar.o \
+	${OBJECTDIR}/tools/syntax/LookaheadLR.o \
+	${OBJECTDIR}/tools/syntax/State.o \
+	${OBJECTDIR}/util/commons.o
 
 # Test Directory
 TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
@@ -83,15 +85,25 @@ ${OBJECTDIR}/main.o: main.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
-${OBJECTDIR}/tools/syntax/grammar/grammer.o: tools/syntax/grammar/grammer.cpp
-	${MKDIR} -p ${OBJECTDIR}/tools/syntax/grammar
+${OBJECTDIR}/tools/syntax/Grammar.o: tools/syntax/Grammar.cpp
+	${MKDIR} -p ${OBJECTDIR}/tools/syntax
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tools/syntax/grammar/grammer.o tools/syntax/grammar/grammer.cpp
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tools/syntax/Grammar.o tools/syntax/Grammar.cpp
 
-${OBJECTDIR}/tools/util/commons.o: tools/util/commons.cpp
-	${MKDIR} -p ${OBJECTDIR}/tools/util
+${OBJECTDIR}/tools/syntax/LookaheadLR.o: tools/syntax/LookaheadLR.cpp
+	${MKDIR} -p ${OBJECTDIR}/tools/syntax
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tools/util/commons.o tools/util/commons.cpp
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tools/syntax/LookaheadLR.o tools/syntax/LookaheadLR.cpp
+
+${OBJECTDIR}/tools/syntax/State.o: tools/syntax/State.cpp
+	${MKDIR} -p ${OBJECTDIR}/tools/syntax
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tools/syntax/State.o tools/syntax/State.cpp
+
+${OBJECTDIR}/util/commons.o: util/commons.cpp
+	${MKDIR} -p ${OBJECTDIR}/util
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/util/commons.o util/commons.cpp
 
 # Subprojects
 .build-subprojects:
@@ -144,30 +156,56 @@ ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cpp
 	    ${CP} ${OBJECTDIR}/main.o ${OBJECTDIR}/main_nomain.o;\
 	fi
 
-${OBJECTDIR}/tools/syntax/grammar/grammer_nomain.o: ${OBJECTDIR}/tools/syntax/grammar/grammer.o tools/syntax/grammar/grammer.cpp 
-	${MKDIR} -p ${OBJECTDIR}/tools/syntax/grammar
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/tools/syntax/grammar/grammer.o`; \
+${OBJECTDIR}/tools/syntax/Grammar_nomain.o: ${OBJECTDIR}/tools/syntax/Grammar.o tools/syntax/Grammar.cpp 
+	${MKDIR} -p ${OBJECTDIR}/tools/syntax
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/tools/syntax/Grammar.o`; \
 	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tools/syntax/grammar/grammer_nomain.o tools/syntax/grammar/grammer.cpp;\
+	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tools/syntax/Grammar_nomain.o tools/syntax/Grammar.cpp;\
 	else  \
-	    ${CP} ${OBJECTDIR}/tools/syntax/grammar/grammer.o ${OBJECTDIR}/tools/syntax/grammar/grammer_nomain.o;\
+	    ${CP} ${OBJECTDIR}/tools/syntax/Grammar.o ${OBJECTDIR}/tools/syntax/Grammar_nomain.o;\
 	fi
 
-${OBJECTDIR}/tools/util/commons_nomain.o: ${OBJECTDIR}/tools/util/commons.o tools/util/commons.cpp 
-	${MKDIR} -p ${OBJECTDIR}/tools/util
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/tools/util/commons.o`; \
+${OBJECTDIR}/tools/syntax/LookaheadLR_nomain.o: ${OBJECTDIR}/tools/syntax/LookaheadLR.o tools/syntax/LookaheadLR.cpp 
+	${MKDIR} -p ${OBJECTDIR}/tools/syntax
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/tools/syntax/LookaheadLR.o`; \
 	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tools/util/commons_nomain.o tools/util/commons.cpp;\
+	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tools/syntax/LookaheadLR_nomain.o tools/syntax/LookaheadLR.cpp;\
 	else  \
-	    ${CP} ${OBJECTDIR}/tools/util/commons.o ${OBJECTDIR}/tools/util/commons_nomain.o;\
+	    ${CP} ${OBJECTDIR}/tools/syntax/LookaheadLR.o ${OBJECTDIR}/tools/syntax/LookaheadLR_nomain.o;\
+	fi
+
+${OBJECTDIR}/tools/syntax/State_nomain.o: ${OBJECTDIR}/tools/syntax/State.o tools/syntax/State.cpp 
+	${MKDIR} -p ${OBJECTDIR}/tools/syntax
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/tools/syntax/State.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tools/syntax/State_nomain.o tools/syntax/State.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/tools/syntax/State.o ${OBJECTDIR}/tools/syntax/State_nomain.o;\
+	fi
+
+${OBJECTDIR}/util/commons_nomain.o: ${OBJECTDIR}/util/commons.o util/commons.cpp 
+	${MKDIR} -p ${OBJECTDIR}/util
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/util/commons.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/util/commons_nomain.o util/commons.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/util/commons.o ${OBJECTDIR}/util/commons_nomain.o;\
 	fi
 
 # Run Test Targets

@@ -11,6 +11,7 @@
             <make-dep-projects/>
             <sourceRootList>
                 <sourceRootElem>tools</sourceRootElem>
+                <sourceRootElem>util</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

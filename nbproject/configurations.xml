@@ -14,15 +14,17 @@
                    projectFiles="true">
       <logicalFolder name="tools" displayName="tools" projectFiles="true">
         <logicalFolder name="syntax" displayName="syntax" projectFiles="true">
-          <logicalFolder name="grammar" displayName="grammar" projectFiles="true">
-            <itemPath>tools/syntax/grammar/grammar.h</itemPath>
-            <itemPath>tools/syntax/grammar/grammer.cpp</itemPath>
-          </logicalFolder>
+          <itemPath>tools/syntax/Grammar.cpp</itemPath>
+          <itemPath>tools/syntax/Grammar.h</itemPath>
+          <itemPath>tools/syntax/LookaheadLR.cpp</itemPath>
+          <itemPath>tools/syntax/LookaheadLR.h</itemPath>
+          <itemPath>tools/syntax/State.cpp</itemPath>
+          <itemPath>tools/syntax/State.h</itemPath>
         </logicalFolder>
-        <logicalFolder name="util" displayName="util" projectFiles="true">
-          <itemPath>tools/util/commons.cpp</itemPath>
-          <itemPath>tools/util/commons.h</itemPath>
-        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="util" displayName="util" projectFiles="true">
+        <itemPath>util/commons.cpp</itemPath>
+        <itemPath>util/commons.h</itemPath>
       </logicalFolder>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
@@ -52,6 +54,7 @@
   </logicalFolder>
   <sourceRootList>
     <Elem>tools</Elem>
+    <Elem>util</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -126,13 +129,21 @@
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="tools/syntax/grammar/grammar.h" ex="false" tool="3" flavor2="0">
+      <item path="tools/syntax/Grammar.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="tools/syntax/grammar/grammer.cpp" ex="false" tool="1" flavor2="0">
+      <item path="tools/syntax/Grammar.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="tools/util/commons.cpp" ex="false" tool="1" flavor2="0">
+      <item path="tools/syntax/LookaheadLR.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="tools/util/commons.h" ex="false" tool="3" flavor2="0">
+      <item path="tools/syntax/LookaheadLR.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tools/syntax/State.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tools/syntax/State.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="util/commons.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="util/commons.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -215,13 +226,21 @@
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="tools/syntax/grammar/grammar.h" ex="false" tool="3" flavor2="0">
+      <item path="tools/syntax/Grammar.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="tools/syntax/grammar/grammer.cpp" ex="false" tool="1" flavor2="0">
+      <item path="tools/syntax/Grammar.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="tools/util/commons.cpp" ex="false" tool="1" flavor2="0">
+      <item path="tools/syntax/LookaheadLR.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="tools/util/commons.h" ex="false" tool="3" flavor2="0">
+      <item path="tools/syntax/LookaheadLR.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tools/syntax/State.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tools/syntax/State.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="util/commons.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="util/commons.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

@@ -14,20 +14,18 @@
 #include <cstdlib>
 #include <string>
 #include <iostream>
-#include "tools/syntax/grammar/grammar.h"
-#include "tools/util/commons.h"
+#include "tools/syntax/Grammar.h"
+#include "tools/syntax/LookaheadLR.h"
+#include "util/commons.h"
 /*
  * 
  */
 int main(int argc, char** argv) {
-    GRAMMAR *gram = new GRAMMAR("re_grammar.txt");
-    for(auto &kv:gram->FST)
-    {
-        std::cout<<kv.first<<"+++\n";
-        
-        std::string nodes = util::join_strings(kv.second," ");
-        std::cout<<nodes<<"\n";
-    }
+    syntax::Grammar *gram = new syntax::Grammar("re_grammar.txt");
+    syntax::LookaheadLR *lalr = new syntax::LookaheadLR(gram);
+    lalr->BuildCanonicalCollection();
+    
+    std::cout<<lalr->States.size()<<"\n";
     return 0;
 }
 
