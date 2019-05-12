@@ -21,7 +21,7 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=None-Linux
+CND_PLATFORM=GNU-Linux
 CND_DLIB_EXT=so
 CND_CONF=Debug
 CND_DISTDIR=dist
@@ -60,8 +60,8 @@ TESTOBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=-pthread
-CXXFLAGS=-pthread
+CCFLAGS=
+CXXFLAGS=
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -83,27 +83,27 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/tiki-cpp: ${OBJECTFILES}
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 ${OBJECTDIR}/tools/syntax/Grammar.o: tools/syntax/Grammar.cpp
 	${MKDIR} -p ${OBJECTDIR}/tools/syntax
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tools/syntax/Grammar.o tools/syntax/Grammar.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tools/syntax/Grammar.o tools/syntax/Grammar.cpp
 
 ${OBJECTDIR}/tools/syntax/LookaheadLR.o: tools/syntax/LookaheadLR.cpp
 	${MKDIR} -p ${OBJECTDIR}/tools/syntax
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tools/syntax/LookaheadLR.o tools/syntax/LookaheadLR.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tools/syntax/LookaheadLR.o tools/syntax/LookaheadLR.cpp
 
 ${OBJECTDIR}/tools/syntax/State.o: tools/syntax/State.cpp
 	${MKDIR} -p ${OBJECTDIR}/tools/syntax
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tools/syntax/State.o tools/syntax/State.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tools/syntax/State.o tools/syntax/State.cpp
 
 ${OBJECTDIR}/util/commons.o: util/commons.cpp
 	${MKDIR} -p ${OBJECTDIR}/util
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/util/commons.o util/commons.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/util/commons.o util/commons.cpp
 
 # Subprojects
 .build-subprojects:
@@ -114,33 +114,33 @@ ${OBJECTDIR}/util/commons.o: util/commons.cpp
 
 ${TESTDIR}/TestFiles/f1: ${TESTDIR}/Test001/Test001.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc} -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS}   
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS}   `cppunit-config --libs`   
 
 ${TESTDIR}/TestFiles/f2: ${TESTDIR}/Test002/Test002.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc} -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS}   
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS}   `cppunit-config --libs`   
 
 ${TESTDIR}/TestFiles/f3: ${TESTDIR}/TestTiki/TestTiki.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc} -o ${TESTDIR}/TestFiles/f3 $^ ${LDLIBSOPTIONS}   
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f3 $^ ${LDLIBSOPTIONS}   `cppunit-config --libs`   
 
 
 ${TESTDIR}/Test001/Test001.o: Test001/Test001.cpp 
 	${MKDIR} -p ${TESTDIR}/Test001
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/Test001/Test001.o Test001/Test001.cpp
+	$(COMPILE.cc) -g -I. `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/Test001/Test001.o Test001/Test001.cpp
 
 
 ${TESTDIR}/Test002/Test002.o: Test002/Test002.cpp 
 	${MKDIR} -p ${TESTDIR}/Test002
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/Test002/Test002.o Test002/Test002.cpp
+	$(COMPILE.cc) -g -I. `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/Test002/Test002.o Test002/Test002.cpp
 
 
 ${TESTDIR}/TestTiki/TestTiki.o: TestTiki/TestTiki.cpp 
 	${MKDIR} -p ${TESTDIR}/TestTiki
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/TestTiki/TestTiki.o TestTiki/TestTiki.cpp
+	$(COMPILE.cc) -g -I. `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/TestTiki/TestTiki.o TestTiki/TestTiki.cpp
 
 
 ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cpp 
@@ -151,7 +151,7 @@ ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main_nomain.o main.cpp;\
+	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main_nomain.o main.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/main.o ${OBJECTDIR}/main_nomain.o;\
 	fi
@@ -164,7 +164,7 @@ ${OBJECTDIR}/tools/syntax/Grammar_nomain.o: ${OBJECTDIR}/tools/syntax/Grammar.o 
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tools/syntax/Grammar_nomain.o tools/syntax/Grammar.cpp;\
+	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tools/syntax/Grammar_nomain.o tools/syntax/Grammar.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/tools/syntax/Grammar.o ${OBJECTDIR}/tools/syntax/Grammar_nomain.o;\
 	fi
@@ -177,7 +177,7 @@ ${OBJECTDIR}/tools/syntax/LookaheadLR_nomain.o: ${OBJECTDIR}/tools/syntax/Lookah
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tools/syntax/LookaheadLR_nomain.o tools/syntax/LookaheadLR.cpp;\
+	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tools/syntax/LookaheadLR_nomain.o tools/syntax/LookaheadLR.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/tools/syntax/LookaheadLR.o ${OBJECTDIR}/tools/syntax/LookaheadLR_nomain.o;\
 	fi
@@ -190,7 +190,7 @@ ${OBJECTDIR}/tools/syntax/State_nomain.o: ${OBJECTDIR}/tools/syntax/State.o tool
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tools/syntax/State_nomain.o tools/syntax/State.cpp;\
+	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tools/syntax/State_nomain.o tools/syntax/State.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/tools/syntax/State.o ${OBJECTDIR}/tools/syntax/State_nomain.o;\
 	fi
@@ -203,7 +203,7 @@ ${OBJECTDIR}/util/commons_nomain.o: ${OBJECTDIR}/util/commons.o util/commons.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/util/commons_nomain.o util/commons.cpp;\
+	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/util/commons_nomain.o util/commons.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/util/commons.o ${OBJECTDIR}/util/commons_nomain.o;\
 	fi

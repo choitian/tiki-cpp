@@ -2,9 +2,9 @@
 <configurationDescriptor version="100">
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Debug" type="1">
+    <conf name="Release" type="1">
       <toolsSet>
-        <developmentServer>choi@172.25.32.18:22</developmentServer>
+        <developmentServer>localhost</developmentServer>
         <platform>2</platform>
       </toolsSet>
       <dbx_gdbdebugger version="1">
@@ -35,10 +35,10 @@
         </environment>
       </runprofile>
     </conf>
-    <conf name="Release" type="1">
+    <conf name="Debug" type="1">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <platform>3</platform>
+        <platform>2</platform>
       </toolsSet>
       <dbx_gdbdebugger version="1">
         <gdb_pathmaps>
