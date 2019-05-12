@@ -38,12 +38,14 @@ namespace syntax{
     };
 
     class LookaheadLR;
+    class State;
+    typedef std::shared_ptr<State> State_sp;
     class State
     {
        LookaheadLR *lalr;
     public:
        std::set<std::string> Items;
-       std::map<std::string,std::shared_ptr<State>> GotoTable;
+       std::map<std::string,State_sp> GotoTable;
        std::map<std::string,std::set<std::string>> LookaheadTable;
        std::map<std::string,std::string> ParsingActionTable;
        int Id;

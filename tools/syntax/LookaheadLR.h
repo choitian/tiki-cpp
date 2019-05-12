@@ -27,15 +27,15 @@ namespace syntax{
     class LookaheadLR
     {
         Item* makeItem(Production* prod,int dot);
-        std::pair<std::map<std::string,std::shared_ptr<State>>::iterator,bool> AddState(std::shared_ptr<State> state);
-        void Closure(std::shared_ptr<State> state);
+        std::pair<std::map<std::string,State_sp>::iterator,bool> AddState(State_sp state);
+        void Closure(State_sp state);
         void visitItem(std::stack<std::string> &uncheckedNonTerminal,std::set<std::string> &visited,Item* item);
-        std::map<std::string,std::shared_ptr<State>> groupGOTOTable(std::shared_ptr<State> state);
+        std::map<std::string,State_sp> groupGOTOTable(State_sp state);
     public:
         Grammar *gram;
         std::map<std::string,Item*> ItemPool;
-        std::map<std::string,std::shared_ptr<State>> States;        
-        std::shared_ptr<State> InitialState;
+        std::map<std::string,State_sp> States;        
+        State_sp InitialState;
         Item *InitialItem;
         
         LookaheadLR(Grammar *gram);

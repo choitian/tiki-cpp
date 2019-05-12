@@ -20,7 +20,7 @@ namespace syntax{
         }
         return this->ItemPool[hs];
     }
-    std::pair<std::map<std::string,std::shared_ptr<State>>::iterator,bool> LookaheadLR::AddState(std::shared_ptr<State> state)
+    std::pair<std::map<std::string,State_sp>::iterator,bool> LookaheadLR::AddState(State_sp state)
     {
         auto hs = state->HashString();     
         return this->States.insert({hs,state});
@@ -34,7 +34,7 @@ namespace syntax{
             visited.insert(dotRight);
         }
     }
-    void LookaheadLR::Closure(std::shared_ptr<State> state)
+    void LookaheadLR::Closure(State_sp state)
     {
         std::stack<std::string> uncheckedNonTerminal;
         std::set<std::string> visited;
@@ -62,9 +62,9 @@ namespace syntax{
             }
         }
     }
-    std::map<std::string,std::shared_ptr<State>> LookaheadLR::groupGOTOTable(std::shared_ptr<State> state)
+    std::map<std::string,State_sp> LookaheadLR::groupGOTOTable(State_sp state)
     {
-        std::map<std::string,std::shared_ptr<State>> gotoTable; 
+        std::map<std::string,State_sp> gotoTable; 
         for(std::string itemHs:state->Items)
         {
             auto item = this->ItemPool[itemHs];
@@ -92,16 +92,16 @@ namespace syntax{
         
         this->AddState(this->InitialState);
         
-        std::stack<std::shared_ptr<State>> uncheckedState;
+        std::stack<State_sp> uncheckedState;
         uncheckedState.push(this->InitialState);
         
         while(!uncheckedState.empty())
         {
-           std::shared_ptr<State> state =  uncheckedState.top();
+           State_sp state =  uncheckedState.top();
            uncheckedState.pop();
            this->Closure(state);
            
-           std::map<std::string,std::shared_ptr<State>> gotoTable = groupGOTOTable(state);
+           std::map<std::string,State_sp> gotoTable = groupGOTOTable(state);
            for(auto item:gotoTable)
            {
                auto addInfo = this->AddState(item.second);

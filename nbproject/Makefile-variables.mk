@@ -7,21 +7,21 @@ CND_BASEDIR=`pwd`
 CND_BUILDDIR=build
 CND_DISTDIR=dist
 # Debug configuration
-CND_PLATFORM_Debug=GNU-Linux
-CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux
+CND_PLATFORM_Debug=None-Linux
+CND_ARTIFACT_DIR_Debug=dist/Debug/None-Linux
 CND_ARTIFACT_NAME_Debug=tiki-cpp
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux/tiki-cpp
-CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux/package
+CND_ARTIFACT_PATH_Debug=dist/Debug/None-Linux/tiki-cpp
+CND_PACKAGE_DIR_Debug=dist/Debug/None-Linux/package
 CND_PACKAGE_NAME_Debug=tiki-cpp.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux/package/tiki-cpp.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/None-Linux/package/tiki-cpp.tar
 # Release configuration
-CND_PLATFORM_Release=MinGW-Windows
-CND_ARTIFACT_DIR_Release=dist/Release/MinGW-Windows
+CND_PLATFORM_Release=GNU-Windows
+CND_ARTIFACT_DIR_Release=dist/Release/GNU-Windows
 CND_ARTIFACT_NAME_Release=tiki-cpp
-CND_ARTIFACT_PATH_Release=dist/Release/MinGW-Windows/tiki-cpp
-CND_PACKAGE_DIR_Release=dist/Release/MinGW-Windows/package
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-Windows/tiki-cpp
+CND_PACKAGE_DIR_Release=dist/Release/GNU-Windows/package
 CND_PACKAGE_NAME_Release=tiki-cpp.tar
-CND_PACKAGE_PATH_Release=dist/Release/MinGW-Windows/package/tiki-cpp.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-Windows/package/tiki-cpp.tar
 #
 # include compiler specific variables
 #
