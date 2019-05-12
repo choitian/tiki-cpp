@@ -25,7 +25,7 @@ int main(int argc, char** argv) {
     syntax::LookaheadLR *lalr = new syntax::LookaheadLR(gram);
     lalr->BuildCanonicalCollection();
     
-    std::cout<<"lalr->States.size: "<< lalr->States.size()<<"\n";
+    std::cout<<"lalr->States.size is:   "<< lalr->States.size()<<"\n";
     return 0;
 }
 
