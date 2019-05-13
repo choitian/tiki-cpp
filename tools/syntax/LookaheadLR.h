@@ -28,19 +28,21 @@ namespace syntax{
     typedef std::shared_ptr<LookaheadLR> LookaheadLR_sp;
     class LookaheadLR
     {
+        Grammar_sp gram;   
+        std::map<std::string,Item_sp> itemPool;
+           
         Item* makeItem(Production* prod,int dot);
-        std::pair<std::map<std::string,State_sp>::iterator,bool> AddState(State_sp state);
-        void Closure(State_sp state);
+        std::pair<std::map<std::string,State_sp>::iterator,bool> addState(State_sp state);
+        void closure(State_sp state);
         void visitItem(std::stack<std::string> &uncheckedNonTerminal,std::set<std::string> &visited,Item* item);
         std::map<std::string,State_sp> groupGOTOTable(State_sp state);
     public:
-        Grammar_sp gram;
-        std::map<std::string,Item*> ItemPool;
-        std::map<std::string,State_sp> States;        
+        std::map<std::string,State_sp> States;    
         State_sp InitialState;
         Item *InitialItem;
         
         LookaheadLR(Grammar_sp gram);
+        Item* GetItem(std::string &itemHs);
         void BuildCanonicalCollection();
     };
 }

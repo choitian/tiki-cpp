@@ -22,7 +22,7 @@
  */
 int main(int argc, char** argv) {
     
-    syntax::Grammar_sp gram = std::make_shared<syntax::Grammar>("re_grammar.txt");;
+    syntax::Grammar_sp gram = std::make_shared<syntax::Grammar>("re_grammar.txt");
     syntax::LookaheadLR_sp lalr = std::make_shared<syntax::LookaheadLR>(gram);
     lalr->BuildCanonicalCollection();
     

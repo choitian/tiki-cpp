@@ -15,12 +15,19 @@ namespace syntax{
     Item* LookaheadLR::makeItem(Production* prod,int dot)
     {
         std::string hs = Item::HashString(prod,dot);
-        if(this->ItemPool.count(hs)==0){
-            this->ItemPool[hs] = new Item(prod,dot);
+        if(this->itemPool.count(hs)==0){
+            this->itemPool[hs] = std::make_shared<Item>(prod,dot);
         }
-        return this->ItemPool[hs];
+        return this->itemPool[hs].get();
     }
-    std::pair<std::map<std::string,State_sp>::iterator,bool> LookaheadLR::AddState(State_sp state)
+    Item* LookaheadLR::GetItem(std::string &itemHs)
+    {
+        if(this->itemPool.count(itemHs)==0){
+            return nullptr;
+        }
+        return this->itemPool[itemHs].get();
+    }
+    std::pair<std::map<std::string,State_sp>::iterator,bool> LookaheadLR::addState(State_sp state)
     {
         auto hs = state->HashString();     
         return this->States.insert({hs,state});
@@ -34,14 +41,14 @@ namespace syntax{
             visited.insert(dotRight);
         }
     }
-    void LookaheadLR::Closure(State_sp state)
+    void LookaheadLR::closure(State_sp state)
     {
         std::stack<std::string> uncheckedNonTerminal;
         std::set<std::string> visited;
         
         for(std::string itemHs:state->Items)
         {
-            auto item = this->ItemPool[itemHs];
+            auto item = this->GetItem(itemHs);
             visitItem(uncheckedNonTerminal,visited,item);
         }
         
@@ -67,7 +74,7 @@ namespace syntax{
         std::map<std::string,State_sp> gotoTable; 
         for(std::string itemHs:state->Items)
         {
-            auto item = this->ItemPool[itemHs];
+            auto item = this->itemPool[itemHs];
             std::string dotRight = item->DotRight();
             if(dotRight !="")
             {
@@ -90,7 +97,7 @@ namespace syntax{
         this->InitialState = std::make_shared<State>(this);
         this->InitialState->AddItem(this->InitialItem);
         
-        this->AddState(this->InitialState);
+        this->addState(this->InitialState);
         
         std::stack<State_sp> uncheckedState;
         uncheckedState.push(this->InitialState);
@@ -99,12 +106,12 @@ namespace syntax{
         {
            State_sp state =  uncheckedState.top();
            uncheckedState.pop();
-           this->Closure(state);
+           this->closure(state);
            
            std::map<std::string,State_sp> gotoTable = groupGOTOTable(state);
            for(auto item:gotoTable)
            {
-               auto addInfo = this->AddState(item.second);
+               auto addInfo = this->addState(item.second);
                if(addInfo.second)
                {
                    uncheckedState.push(addInfo.first->second);

@@ -22,6 +22,8 @@
 #include "Grammar.h"
 
 namespace syntax{
+    class Item;
+    typedef std::shared_ptr<Item> Item_sp;
     class Item
     {
     public:

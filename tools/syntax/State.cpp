@@ -52,7 +52,7 @@ namespace syntax{
         std::vector<std::string> hsList;
         for(auto itemHs:this->Items)
         {
-            auto item = this->lalr->ItemPool[itemHs];
+            auto item = this->lalr->GetItem(itemHs);
             hsList.push_back(item->HashString());
         }
         return util::join_strings(hsList,"@");
@@ -68,7 +68,7 @@ namespace syntax{
         std::vector<Item*> ks;
         for(auto itemHs:this->Items)
         {
-            auto item = this->lalr->ItemPool[itemHs];
+            auto item = this->lalr->GetItem(itemHs);
             if(item->IsKernel())
                 ks.push_back(item);
         }
