@@ -6,8 +6,8 @@
 
 void Test_BuildCanonicalCollection() {
     {
-        syntax::Grammar *gram = new syntax::Grammar("re_grammar.txt");
-        syntax::LookaheadLR *lalr = new syntax::LookaheadLR(gram);
+        syntax::Grammar_sp gram = std::make_shared<syntax::Grammar>("re_grammar.txt");
+        syntax::LookaheadLR_sp lalr = std::make_shared<syntax::LookaheadLR>(gram);
         lalr->BuildCanonicalCollection();
         REQUIRE(lalr->States.size() == 19);
         
@@ -22,8 +22,8 @@ void Test_BuildCanonicalCollection() {
         REQUIRE(gotoSum == 42);
     }
     {
-        syntax::Grammar *gram = new syntax::Grammar("dnf.txt");
-        syntax::LookaheadLR *lalr = new syntax::LookaheadLR(gram);
+        syntax::Grammar_sp gram = std::make_shared<syntax::Grammar>("dnf.txt");
+        syntax::LookaheadLR_sp lalr = std::make_shared<syntax::LookaheadLR>(gram);
         lalr->BuildCanonicalCollection();
         REQUIRE(lalr->States.size() == 245);
         
@@ -40,7 +40,7 @@ void Test_BuildCanonicalCollection() {
 }
 void test_Grammar() {
     {
-        syntax::Grammar *gram = new syntax::Grammar("re_grammar.txt");
+        syntax::Grammar_sp gram = std::make_shared<syntax::Grammar>("re_grammar.txt");
         REQUIRE(gram->Productions.size() == 15);
         REQUIRE(gram->Nullable.size() == 1);
         for(auto &kv:gram->FST)
@@ -53,7 +53,7 @@ void test_Grammar() {
         }
     }
     {
-        syntax::Grammar *gram = new syntax::Grammar("dnf.txt");
+        syntax::Grammar_sp gram = std::make_shared<syntax::Grammar>("dnf.txt");
         REQUIRE(gram->Productions.size() == 143);
         REQUIRE(gram->Nullable.size() == 4);
         for(auto &kv:gram->FST)

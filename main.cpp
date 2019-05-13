@@ -21,11 +21,12 @@
  * 
  */
 int main(int argc, char** argv) {
-    syntax::Grammar *gram = new syntax::Grammar("re_grammar.txt");
-    syntax::LookaheadLR *lalr = new syntax::LookaheadLR(gram);
+    
+    syntax::Grammar_sp gram = std::make_shared<syntax::Grammar>("re_grammar.txt");;
+    syntax::LookaheadLR_sp lalr = std::make_shared<syntax::LookaheadLR>(gram);
     lalr->BuildCanonicalCollection();
     
-    std::cout<<"lalr->States.size is:   "<< lalr->States.size()<<"\n";
+    std::cout<<"lalr->States.size:   "<< lalr->States.size()<<"\n";
     return 0;
 }
 

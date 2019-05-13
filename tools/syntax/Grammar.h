@@ -25,7 +25,8 @@ namespace syntax{
     const std::string SymbolEnd  = "__END__";
     const std::string SymbolNull  = "__NULL__";
 
-
+    class Production;
+    typedef std::shared_ptr<Production> Production_sp;
     class Production
     {
     public:
@@ -39,13 +40,15 @@ namespace syntax{
         bool IsNull();
     };
 
+    class Grammar;
+    typedef std::shared_ptr<Grammar> Grammar_sp;
     class Grammar
     {
         void loadProductions(std::string &symbol,std::string &prods);
         void CalcFst(std::vector<std::string> &symbols,std::set<std::string> &fst, bool &nullable);
         void computeAttributes();
     public:
-        std::vector<std::shared_ptr<Production>> Productions;
+        std::vector<Production_sp> Productions;
         std::map<std::string,std::set<std::string>> FST;
         std::map<std::string,bool> IsTerminal;
         std::set<std::string> Nullable;

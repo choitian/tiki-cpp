@@ -24,6 +24,8 @@
 #include "State.h"
 
 namespace syntax{
+    class LookaheadLR;
+    typedef std::shared_ptr<LookaheadLR> LookaheadLR_sp;
     class LookaheadLR
     {
         Item* makeItem(Production* prod,int dot);
@@ -32,13 +34,13 @@ namespace syntax{
         void visitItem(std::stack<std::string> &uncheckedNonTerminal,std::set<std::string> &visited,Item* item);
         std::map<std::string,State_sp> groupGOTOTable(State_sp state);
     public:
-        Grammar *gram;
+        Grammar_sp gram;
         std::map<std::string,Item*> ItemPool;
         std::map<std::string,State_sp> States;        
         State_sp InitialState;
         Item *InitialItem;
         
-        LookaheadLR(Grammar *gram);
+        LookaheadLR(Grammar_sp gram);
         void BuildCanonicalCollection();
     };
 }

@@ -8,7 +8,7 @@
 #include <set>
 
 namespace syntax{
-    LookaheadLR::LookaheadLR(Grammar* gram)
+    LookaheadLR::LookaheadLR(Grammar_sp gram)
     {
         this->gram = gram;
     }

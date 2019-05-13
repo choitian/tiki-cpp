@@ -132,7 +132,7 @@ namespace syntax{
         std::regex e ("(\\s*\\w+\\s*)\\:(((\\s*\\w+\\s*)+(\\s*\\{.*\\}\\s*)?\\|?)+)\\s*;");   // matches words beginning by "sub"
 
         std::string content_s = content;
-        std::shared_ptr<Production> prod = std::make_shared<Production>(SymbolStart);
+        Production_sp prod = std::make_shared<Production>(SymbolStart);
         this->Productions.push_back(prod);
         while (std::regex_search (content_s,matches,e)) {
             std::string symbol = util::trim(matches[1]);
